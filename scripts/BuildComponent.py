@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from abc import ABCMeta
+from abc import abstractmethod
 from BuildComponentHotspot import BuildComponentHotspot
 
 
