@@ -11,10 +11,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -103,10 +104,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include/assembler
 #  LIBRARIES assembler
 #  CATKIN_DEPENDS baxter_core_msgs baxter_interface baxter_maintenance_msgs roscpp rospy std_msgs
-#  DEPENDS system_lib
+  DEPENDS system_lib
 )
 
 ###########
@@ -124,6 +125,9 @@ include_directories(
 # add_library(assembler
 #   src/${PROJECT_NAME}/assembler.cpp
 # )
+add_library(assembler
+        src/HotspotMegaBlock.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -155,13 +159,6 @@ include_directories(
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-
-install(PROGRAMS
-	scripts/wave.py
-	scripts/BuildComponent.py
-	scripts/BuildComponentHotspot.py
-	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS assembler assembler_node
