@@ -2,7 +2,7 @@
 // Created by matt on 8/29/16.
 //
 
-#include "include/assembler/HotspotMegablock.h"
+#include "HotspotMegaBlock.h"
 
 HotspotMegaBlock::HotspotMegaBlock() {
 
@@ -18,7 +18,7 @@ HotspotMegaBlock::HotspotMegaBlock(float x, float y, float z) {
     this->position = pos;
 }
 
-HotspotMegaBlock::HotspotMegaBlock(geometry_msgs::PointPtr position) {
+HotspotMegaBlock::HotspotMegaBlock(geometry_msgs::Point position) {
 
     this->position = position;
 }
