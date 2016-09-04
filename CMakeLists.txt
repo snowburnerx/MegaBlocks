@@ -24,6 +24,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   geometry_msgs
+  sensor_msgs
+  cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -171,6 +173,11 @@ add_library(assembler
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+install(PROGRAMS
+    scripts/cv_bridge_node.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS assembler assembler_node
