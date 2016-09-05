@@ -1,0 +1,31 @@
+name: "Example Assembly"
+layers:
+    layer0:
+        zheight: 0.0
+        components:
+            component0:
+                typeID: "MegaBlock_1x1_Full"
+                position: [0.0, 0.0, 0.0]
+                rotationAngle: 90.0
+                color: "Red"
+            component1:
+                typeID: "MegaBlock_2x2_Full"
+                position: [0.0, 2.0, 0.0]
+                rotationAngle: 90.0
+                color: "Yellow"
+    layer1:
+        zheight: 1.97
+        components:
+            component0:
+                typeID: "MegaBlock_1x1_Full"
+                position: [0.0, 0.0, 0.0]
+                rotationAngle: 90.0
+                color: "Red"
+            component1:
+                typeID: "MegaBlock_2x2_Full"
+                position: [0.0, 2.0, 0.0]
+                rotationAngle: 90.0
+                color: "Yellow"
+BOM:
+    - ["MegaBlock_1x1_Full", 2]
+    - ["MegaBlock_2x2_Full", 2]

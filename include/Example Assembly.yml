@@ -1,0 +1,83 @@
+name: "Example Assembly"
+layers:
+    layer3:
+        zheight: 1.935
+        components:
+            component0:
+                typeID: "MegaBlock_1x4_Half"
+                position: [-0.814, -1.61, 1.935]
+                rotationAngle: 180
+                color: "Blue"
+            component1:
+                typeID: "MegaBlock_1x4_Half"
+                position: [1.606, -1.61, 1.935]
+                rotationAngle: 180
+                color: "Blue"
+    layer2:
+        zheight: 1.45
+        components:
+            component0:
+                typeID: "MegaBlock_1x4_Half"
+                position: [-1.62, 0.81, 1.45]
+                rotationAngle: 270
+                color: "Blue"
+            component1:
+                typeID: "MegaBlock_1x4_Half"
+                position: [-1.62, -1.61, 1.45]
+                rotationAngle: 270
+                color: "Blue"
+    layer1:
+        zheight: 0.494
+        components:
+            component0:
+                typeID: "MegaBlock_1x1_Full"
+                position: [1.613, 0.807, 0.494]
+                rotationAngle: 180
+                color: "Yellow"
+            component1:
+                typeID: "MegaBlock_1x1_Full"
+                position: [-0.81, 0.81, 0.494]
+                rotationAngle: 180
+                color: "Red"
+            component2:
+                typeID: "MegaBlock_1x1_Full"
+                position: [1.61, -1.61, 0.494]
+                rotationAngle: 180
+                color: "Red"
+            component3:
+                typeID: "MegaBlock_1x4_Half"
+                position: [0.803, -1.61, 0.484]
+                rotationAngle: 180
+                color: "Blue"
+            component4:
+                typeID: "MegaBlock_1x1_Full"
+                position: [-0.809, -1.61, 0.494]
+                rotationAngle: 180
+                color: "Yellow"
+    layer0:
+        zheight: 0
+        components:
+            component0:
+                typeID: "MegaBlock_2x2_Full"
+                position: [1.613, 0, 0]
+                rotationAngle: 180
+                color: ""
+            component1:
+                typeID: "MegaBlock_2x2_Full"
+                position: [0, 0, 0]
+                rotationAngle: 180
+                color: ""
+            component2:
+                typeID: "MegaBlock_2x2_Full"
+                position: [1.61, -1.61, 0]
+                rotationAngle: 180
+                color: ""
+            component3:
+                typeID: "MegaBlock_2x2_Full"
+                position: [-0.003, -1.61, 0]
+                rotationAngle: 180
+                color: ""
+BOM:
+    - ["MegaBlock_1x4_Half", 5]
+    - ["MegaBlock_2x2_Full", 4]
+    - ["MegaBlock_1x1_Full", 4]

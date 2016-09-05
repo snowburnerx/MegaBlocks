@@ -141,7 +141,7 @@ include_directories(
 # )
 add_library(assembler
         src/HotspotMegaBlock.cpp
-)
+        src/AssemblyLayer.cpp src/AssemblyLayer.h src/BuildComponent.cpp src/BuildComponent.h)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -159,6 +159,7 @@ add_library(assembler
 # target_link_libraries(assembler_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(${PROJECT_NAME} yaml-cpp)
 
 #############
 ## Install ##
