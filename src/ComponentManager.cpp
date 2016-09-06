@@ -5,10 +5,21 @@
 #include "ComponentManager.h"
 
 ComponentManager::ComponentManager() {
-    this->componentDatabase = std::map<std::string, std::string>();
 
+    this->componentDatabase = std::map<std::string, std::string>();
     loadDatabase();
 }
+
+
+ComponentManager* ComponentManager::getSharedManager() {
+
+    if (sharedManager == NULL) {
+        sharedManager = new ComponentManager();
+    }
+
+    return sharedManager;
+}
+
 
 void ComponentManager::loadDatabase() {
 
@@ -21,11 +32,15 @@ void ComponentManager::loadDatabase() {
 
         YAML::Node configData = YAML::Load(filenames[i]);
 
-        if (configData["name"] != NULL) {
+        if (configData["name"]) {
 
-            std::pair<std::string, std::string> entry = std::pair<std::string, std::string> (
-                    configData["name"].as<std::string>(), filenames[i]
-            );
+            for (YAML::const_iterator it=configData.begin(); it != configData.end(); ++it) {
+
+                std::string key = it->first.as<std::string>();
+                std::string filename = it->as<std::string>();
+
+                sharedManager->componentDatabase.insert(std::pair<std::string, std::string>(key, filename));
+            }
 
         } else {
             ROS_WARN("%s does not contain a entry for \'name\'. It will be ignored.", filenames[i].c_str());
@@ -34,14 +49,14 @@ void ComponentManager::loadDatabase() {
     }
 }
 
-static std::string ComponentManager::getComponentConfigFilename(std::string idString) {
+std::string ComponentManager::getComponentConfigFilename(std::string idString) {
 
     std::string toReturn;
 
-    if (ComponentManager::sharedManager.componentDatabase[idString] != NULL) {
-        toReturn = ComponentManager::sharedManager.componentDatabase[idString];
+    if (sharedManager->componentDatabase.count(idString)) {
+        toReturn = sharedManager->componentDatabase[idString];
     } else {
-        toReturn = NULL;
+        toReturn = "";
     }
 
     return toReturn;

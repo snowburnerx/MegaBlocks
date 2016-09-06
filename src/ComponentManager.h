@@ -15,13 +15,14 @@
 class ComponentManager {
 
 public:
-    static ComponentManager sharedManager = ComponentManager::ComponentManager();
     std::map<std::string, std::string> componentDatabase;
     static std::string getComponentConfigFilename(std::string idString);
+    static ComponentManager* getSharedManager();
 
 private:
     ComponentManager();
     void loadDatabase();
+    static ComponentManager* sharedManager;
 };
 
 #endif //PROJECT_COMPONENTMANAGER_H
