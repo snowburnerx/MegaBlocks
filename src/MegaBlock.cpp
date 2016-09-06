@@ -2,9 +2,34 @@
 // Created by matthew on 9/4/16.
 //
 
-#include "BuildComponent.h"
+#include "MegaBlock.h"
 
-void BuildComponent::loadConfigFromYAML(std::string filename) {
+
+MegaBlock::MegaBlock(std::string assemblyData) {
+
+    // Load basic config data from YAML file
+//    loadConfigFromYAML(configFilename);
+
+    // Initialize remaining fields from assembly data
+    YAML::Node data = YAML::Load(assemblyData);
+
+    this->transform = geometry_msgs::Transform();
+
+    this->transform.translation.x = (data["position"][0] != NULL) ? data["position"][0].as<double>() : 0.0;
+    this->transform.translation.y = (data["position"][1] != NULL) ? data["position"][1].as<double>() : 0.0;
+    this->transform.translation.z = (data["position"][2] != NULL) ? data["position"][2].as<double>() : 0.0;
+
+    double yaw = (data["rotationAngle"] != NULL) ? data["rotationAngle"].as<double>() : 0.0;
+    tf::Quaternion quat = tf::createQuaternionFromYaw(yaw);
+    this->transform.rotation.x = quat.x();
+    this->transform.rotation.y = quat.y();
+    this->transform.rotation.z = quat.z();
+    this->transform.rotation.w = quat.w();
+
+    this->color = (data["color"] != NULL) ? data["color"].as<std::string>() : "GRAY";
+}
+
+void MegaBlock::loadConfigFromYAML(std::string filename) {
 
     YAML::Node config = YAML::LoadFile(filename);
 

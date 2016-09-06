@@ -20,18 +20,13 @@
 class BuildComponent {
 
 public:
-    std::string color;
     std::string componentID;
 
-    BuildComponent(std::string configFilename);
-    BuildComponent(std::string configFilename, std::string assemblyData);
-
-private:
+protected:
+    virtual void loadConfigFromYAML(std::string configFilename);
     geometry_msgs::Transform transform;
     geometry_msgs::Vector3 bounds;
     std::vector<Hotspot> hotspots;
-
-    void loadConfigFromYAML(std::string filename);
 };
 
 #endif //PROJECT_BUILDCOMPONENT_H
