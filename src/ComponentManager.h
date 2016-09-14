@@ -6,6 +6,7 @@
 #define PROJECT_COMPONENTMANAGER_H
 
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <string>
 #include <vector>
 #include <map>

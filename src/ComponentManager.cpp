@@ -28,7 +28,9 @@ void ComponentManager::loadDatabase() {
     ROS_INFO("Loading component configuration files...");
 
     // Read all the files in the include/componentConfigs directory
-    fs::path path("/home/matthew/Documents/Projects/baxter_testing/src/MegaBlocks/include/componentConfigs");
+    std::string configFilepath = ros::package::getPath("assembler").append("/include/componentConfigs");
+//    fs::path path("/home/matthew/Documents/Projects/baxter_testing/src/MegaBlocks/include/componentConfigs");
+    fs::path path(configFilepath);
     fs::recursive_directory_iterator begin(path), end;
     std::vector<fs::directory_entry> fileList(begin, end);
 

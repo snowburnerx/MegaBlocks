@@ -28,6 +28,7 @@ find_package(catkin REQUIRED COMPONENTS
         cv_bridge
         class_loader
         message_generation
+        roslib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -181,7 +182,7 @@ add_executable(foreman_node src/ForemanNode/ForemanNode.cpp)
 #   ${catkin_LIBRARIES}
 # )
 #target_link_libraries(test_parse ${catkin_LIBRARIES} yaml-cpp)
-target_link_libraries(assembler ${catkin_LIBRARIES} yaml-cpp assembler ${class_loader_LIBRARIES})
+target_link_libraries(assembler ${catkin_LIBRARIES} yaml-cpp ${class_loader_LIBRARIES})
 target_link_libraries(layered_assembler ${catkin_LIBRARIES} yaml-cpp assembler)
 target_link_libraries(foreman_node ${catkin_LIBRARIES} yaml-cpp assembler)
 #target_link_libraries(${PROJECT_NAME} yaml-cpp)
