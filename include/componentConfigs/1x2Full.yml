@@ -1,16 +1,15 @@
-name: "1x2Full"
+name: "MegaBlock_1x2_Full"
 bx: 1.25
 by: 2.5
 bz: 2.25
 hotspots:
-	- h1:
-		type: "megaBlock"
-		x: 0.625
-		y: 0.625
-		z: 0
-	- h2:
-		type: "megaBlock"
-		x: 0.625
-		y: 1.875
-		z: 0
-	
+    - h1:
+        type: "megaBlock"
+        x: 0.625
+        y: 0.625
+        z: 0
+    - h2:
+        type: "megaBlock"
+        x: 0.625
+        y: 1.875
+        z: 0

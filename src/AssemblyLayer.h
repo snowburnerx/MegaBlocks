@@ -14,20 +14,21 @@
 class AssemblyLayer {
 
 public:
+    AssemblyLayer(float zHeight);
     AssemblyLayer(float zHeight, int layerIndex);
 
-    int getLayerIndex();
+    long getLayerIndex();
     void setLayerIndex(int newIndex);
     float getLayerZHeight();
     void setLayerZHeight(float newHeight);
-    void addBuildComponent(BuildComponent toAdd);
+    void addBuildComponent(BuildComponent* toAdd);
     unsigned long getNumberOfComponents();
-    std::vector<BuildComponent> getBuildComponents();
+    std::vector<BuildComponent*> getBuildComponents();
 
 private:
-    int layerIndex;
+    long layerIndex;
     float layerZHeight;
-    std::vector<BuildComponent> buildComponents;
+    std::vector<BuildComponent*> buildComponents;
 
 };
 

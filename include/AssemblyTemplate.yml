@@ -1,4 +1,5 @@
 name: "Example Assembly"
+assemblerTypeID: "LayeredAssemblerNode"
 layers:
     layer0:
         zheight: 0.0

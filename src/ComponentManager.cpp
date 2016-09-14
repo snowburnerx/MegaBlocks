@@ -4,6 +4,8 @@
 
 #include "ComponentManager.h"
 
+ComponentManager* ComponentManager::sharedManager = NULL;
+
 ComponentManager::ComponentManager() {
 
     this->componentDatabase = std::map<std::string, std::string>();
@@ -23,34 +25,45 @@ ComponentManager* ComponentManager::getSharedManager() {
 
 void ComponentManager::loadDatabase() {
 
-    // Read all the files in the directories listed in the config file
+    ROS_INFO("Loading component configuration files...");
 
-    std::vector<std::string> filenames = std::vector<std::string>();
+    // Read all the files in the include/componentConfigs directory
+    fs::path path("/home/matthew/Documents/Projects/baxter_testing/src/MegaBlocks/include/componentConfigs");
+    fs::recursive_directory_iterator begin(path), end;
+    std::vector<fs::directory_entry> fileList(begin, end);
 
-    for (int i = 0; i < filenames.size(); i++) {
-        // Create and store the entry
+    for (fs::directory_entry& f : fileList) {
 
-        YAML::Node configData = YAML::Load(filenames[i]);
-
-        if (configData["name"]) {
-
-            for (YAML::const_iterator it=configData.begin(); it != configData.end(); ++it) {
-
-                std::string key = it->first.as<std::string>();
-                std::string filename = it->as<std::string>();
-
-                sharedManager->componentDatabase.insert(std::pair<std::string, std::string>(key, filename));
-            }
-
-        } else {
-            ROS_WARN("%s does not contain a entry for \'name\'. It will be ignored.", filenames[i].c_str());
+        if (fs::is_directory(f)) {
+        } else if (f.path().extension() == ".yml") {
+            parseConfigYAMLFile(f.path().string());
         }
-
     }
+
+    ROS_INFO("Finished loading component configuration files: %li components found.", this->componentDatabase.size());
 }
+
+
+void ComponentManager::parseConfigYAMLFile(std::string filepath) {
+
+    YAML::Node configData = YAML::LoadFile(filepath);
+
+    if (configData["name"]) {
+
+        std::string name = configData["name"].as<std::string>();
+        ROS_INFO("Found component config for %s", name.c_str());
+        this->componentDatabase[name] = filepath;
+
+    } else {
+        ROS_WARN("%s does not contain a entry for \'name\'. It will be ignored.", filepath.c_str());
+    }
+
+}
+
 
 std::string ComponentManager::getComponentConfigFilename(std::string idString) {
 
+//    std::cout << "file for id '" << idString << "' requested.\n";
     std::string toReturn;
 
     if (sharedManager->componentDatabase.count(idString)) {
@@ -58,6 +71,8 @@ std::string ComponentManager::getComponentConfigFilename(std::string idString) {
     } else {
         toReturn = "";
     }
+
+//    std::cout << "returning path: " << toReturn << " for that id.\n";
 
     return toReturn;
 }

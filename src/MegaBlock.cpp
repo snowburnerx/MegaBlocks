@@ -7,26 +7,44 @@
 
 MegaBlock::MegaBlock(std::string assemblyData) {
 
-    // Load basic config data from YAML file
-//    loadConfigFromYAML(configFilename);
+    this->hotspots = std::vector<Hotspot*>();
 
     // Initialize remaining fields from assembly data
     YAML::Node data = YAML::Load(assemblyData);
+    init(data);
+}
+
+MegaBlock::MegaBlock(YAML::Node assemblyData) {
+
+    this->hotspots = std::vector<Hotspot*>();
+
+    init(assemblyData);
+}
+
+void MegaBlock::init(YAML::Node assemblyData) {
+
+    YAML::Node baseConfigData;
+
+    if (assemblyData["typeID"]) {
+        std::string filename = ComponentManager::getSharedManager()->getComponentConfigFilename(assemblyData["typeID"].as<std::string>());
+//        std::cout << "Filename for component id '" << assemblyData["typeID"].as<std::string>() << "' is " << filename << "\n";
+        baseConfigData = YAML::LoadFile(filename);
+    }
 
     this->transform = geometry_msgs::Transform();
 
-    this->transform.translation.x = (data["position"][0] != NULL) ? data["position"][0].as<double>() : 0.0;
-    this->transform.translation.y = (data["position"][1] != NULL) ? data["position"][1].as<double>() : 0.0;
-    this->transform.translation.z = (data["position"][2] != NULL) ? data["position"][2].as<double>() : 0.0;
+    this->transform.translation.x = (assemblyData["position"][0] != NULL) ? assemblyData["position"][0].as<double>() : 0.0;
+    this->transform.translation.y = (assemblyData["position"][1] != NULL) ? assemblyData["position"][1].as<double>() : 0.0;
+    this->transform.translation.z = (assemblyData["position"][2] != NULL) ? assemblyData["position"][2].as<double>() : 0.0;
 
-    double yaw = (data["rotationAngle"] != NULL) ? data["rotationAngle"].as<double>() : 0.0;
+    double yaw = (assemblyData["rotationAngle"] != NULL) ? assemblyData["rotationAngle"].as<double>() : 0.0;
     tf::Quaternion quat = tf::createQuaternionFromYaw(yaw);
     this->transform.rotation.x = quat.x();
     this->transform.rotation.y = quat.y();
     this->transform.rotation.z = quat.z();
     this->transform.rotation.w = quat.w();
 
-    this->color = (data["color"] != NULL) ? data["color"].as<std::string>() : "GRAY";
+    this->color = (assemblyData["color"] != NULL) ? assemblyData["color"].as<std::string>() : "GRAY";
 }
 
 void MegaBlock::loadConfigFromYAML(std::string filename) {
@@ -70,7 +88,7 @@ void MegaBlock::loadConfigFromYAML(std::string filename) {
             y = hotspotEntry["y"].as<double>();
             z = hotspotEntry["z"].as<double>();
 
-            this->hotspots.push_back(HotspotMegaBlock(x, y, z));
+            this->hotspots.push_back(new HotspotMegaBlock(x, y, z));
         }
     }
 }

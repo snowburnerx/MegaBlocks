@@ -5,20 +5,20 @@
 #ifndef BAXTER_TESTING_HOTSPOT_H
 #define BAXTER_TESTING_HOTSPOT_H
 
-#include <ros/ros.h>
+#include <geometry_msgs/Transform.h>
+#include <yaml-cpp/yaml.h>
 
 class Hotspot {
 
 public:
-    virtual bool validConnection(Hotspot proposedConnection);
-    virtual void getRobotMovement();
-    virtual void getGoalVector();
-    virtual double getRotationAngle();
-    virtual void setRotationAngle(double newValue);
+    virtual bool validConnection(Hotspot* proposedConnection) = 0;
+    virtual void getRobotMovement() = 0;
+    virtual geometry_msgs::Vector3 getGoalVector() = 0;
+    virtual float getRotationAngle() = 0;
+    virtual void setRotationAngle(float newValue) = 0;
 
 protected:
-    std::string typeID = "NONE";
-    double rotationAngle = 0.0;
+    float rotationAngle;
 };
 
 #endif //BAXTER_TESTING_HOTSPOT_H

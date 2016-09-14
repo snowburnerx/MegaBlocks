@@ -51,6 +51,8 @@
   <build_depend>opencv2</build_depend>
   <build_depend>cv_bridge</build_depend>
   <build_depend>yaml-cpp</build_depend>
+  <build_depend>class_loader</build_depend>
+  <build_depend>message_generation</build_depend>
   <run_depend>baxter_core_msgs</run_depend>
   <run_depend>baxter_interface</run_depend>
   <run_depend>baxter_maintenance_msgs</run_depend>
@@ -66,6 +68,8 @@
   <run_depend>python-yaml</run_depend>
   <run_depend>python-rosdep</run_depend>
   <run_depend>python-rospkg</run_depend>
+  <run_depend>class_loader</run_depend>
+  <run_depend>message_runtime</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

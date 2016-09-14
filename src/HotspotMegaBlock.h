@@ -7,9 +7,7 @@
 
 #include "Hotspot.h"
 #include <vector>
-#include <string>
 #include <geometry_msgs/Point.h>
-#include <yaml-cpp/yaml.h>
 
 class HotspotMegaBlock: public Hotspot {
 
@@ -18,16 +16,21 @@ class HotspotMegaBlock: public Hotspot {
 public:
 
     HotspotMegaBlock();
-
     HotspotMegaBlock(double x, double y, double z);
-
     HotspotMegaBlock(geometry_msgs::Point position);
-
     HotspotMegaBlock(std::string configData);
 
     geometry_msgs::Point getPosition();
 
+    //From Hotspot
+    virtual bool validConnection(Hotspot* proposedConnection);
+    virtual void getRobotMovement();
+    virtual geometry_msgs::Vector3 getGoalVector();
+    virtual float getRotationAngle();
+    virtual void setRotationAngle(float newValue);
+
 private:
+    float rotationAngle = 0.0;
     geometry_msgs::Point position;
 
 };

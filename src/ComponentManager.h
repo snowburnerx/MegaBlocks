@@ -10,7 +10,11 @@
 #include <vector>
 #include <map>
 #include <yaml-cpp/yaml.h>
+#include <iostream>
+#include <boost/filesystem.hpp>
 #include "BuildComponent.h"
+
+namespace fs = boost::filesystem;
 
 class ComponentManager {
 
@@ -22,6 +26,7 @@ public:
 private:
     ComponentManager();
     void loadDatabase();
+    void parseConfigYAMLFile(std::string filepath);
     static ComponentManager* sharedManager;
 };
 

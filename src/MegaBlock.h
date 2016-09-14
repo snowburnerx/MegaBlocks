@@ -6,18 +6,18 @@
 #define PROJECT_MEGABLOCK_H
 
 #include "BuildComponent.h"
-#include <string>
-#include <vector>
-#include <yaml-cpp/yaml.h>
+#include "ComponentManager.h"
 
 class MegaBlock : public BuildComponent {
 
 public:
     std::string color;
     MegaBlock(std::string assemblyData);
+    MegaBlock(YAML::Node assemblyData);
 
 protected:
     virtual void loadConfigFromYAML(std::string filename);
+    void init(YAML::Node assemblyData);
 };
 
 #endif //PROJECT_MEGABLOCK_H

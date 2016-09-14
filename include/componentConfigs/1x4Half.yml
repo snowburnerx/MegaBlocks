@@ -1,26 +1,25 @@
-name: "1x4Half"
+name: "MegaBlock_1x4_Half"
 bx: 1.25
 by: 5
 bz: 1.5
 hotspots:
-	- h1:
-		type: "megaBlock" 
-		x: 0.625
-		y: 0.625
-		z: 0
-	- h2:
-		type: "megaBlock"
-		x: 0.625
-		y: 1.875
-		z: 0
-	- h3:
-		type: "megaBlock"
-		x: 0.625
-		y: 3.125
-		z: 0
-	- h4:
-		type: "megaBlock"
-		x: 0.625
-		y: 4.375
-		z: 0
-	
+    - h1:
+        type: "megaBlock"
+        x: 0.625
+        y: 0.625
+        z: 0
+    - h2:
+        type: "megaBlock"
+        x: 0.625
+        y: 1.875
+        z: 0
+    - h3:
+        type: "megaBlock"
+        x: 0.625
+        y: 3.125
+        z: 0
+    - h4:
+        type: "megaBlock"
+        x: 0.625
+        y: 4.375
+        z: 0

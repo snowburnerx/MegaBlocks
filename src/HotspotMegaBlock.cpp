@@ -38,3 +38,33 @@ geometry_msgs::Point HotspotMegaBlock::getPosition() {
     return  this->position;
 }
 
+bool HotspotMegaBlock::validConnection(Hotspot* proposedConnection) {
+
+    if (HotspotMegaBlock* cast = dynamic_cast<HotspotMegaBlock*>(proposedConnection)) {
+        return true;
+    }
+
+    return false;
+}
+
+void HotspotMegaBlock::getRobotMovement() {
+
+}
+
+geometry_msgs::Vector3 HotspotMegaBlock::getGoalVector() {
+
+    geometry_msgs::Vector3 toReturn;
+    toReturn.x = 1.0;
+    toReturn.y = 1.0;
+    toReturn.z = 1.0;
+
+    return  toReturn;
+}
+
+float HotspotMegaBlock::getRotationAngle() {
+    return this->rotationAngle;
+}
+
+void HotspotMegaBlock::setRotationAngle(float newValue) {
+    this->rotationAngle = newValue;
+}

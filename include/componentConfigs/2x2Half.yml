@@ -1,26 +1,26 @@
-name: "2x2Half"
+name: "MegaBlock_2x2_Half"
 bx: 2.25
 by: 2.25
 bz: 1.5
 hotspots:
-	- h1:
-		type: "megaBlock" 
-		x: 0.625
-		y: 0.625
-		z: 0
-	- h2:
-		type: "megaBlock"
-		x: 0.625
-		y: 1.875
-		z: 0
-	- h3:
-		type: "megaBlock"
-		x: 1.875
-		y: 0.625
-		z: 0
-	- h4:
-		type: "megaBlock"
-		x: 1.875
-		y: 1.875
-		z: 0
-	
+    - h1:
+        type: "megaBlock"
+        x: 0.625
+        y: 0.625
+        z: 0
+    - h2:
+        type: "megaBlock"
+        x: 0.625
+        y: 1.875
+        z: 0
+    - h3:
+        type: "megaBlock"
+        x: 1.875
+        y: 0.625
+        z: 0
+    - h4:
+        type: "megaBlock"
+        x: 1.875
+        y: 1.875
+        z: 0
+

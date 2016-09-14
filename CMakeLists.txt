@@ -17,19 +17,21 @@ endif()
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  baxter_core_msgs
-  baxter_interface
-  baxter_maintenance_msgs
-  roscpp
-  rospy
-  std_msgs
-  geometry_msgs
-  sensor_msgs
-  cv_bridge
+        baxter_core_msgs
+        baxter_interface
+        baxter_maintenance_msgs
+        roscpp
+        rospy
+        std_msgs
+        geometry_msgs
+        sensor_msgs
+        cv_bridge
+        class_loader
+        message_generation
 )
 
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system thread)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -69,11 +71,10 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+        FILES
+        NewJobRequest.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -83,10 +84,11 @@ find_package(Boost REQUIRED COMPONENTS system)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   baxter_core_msgs#   baxter_maintenance_msgs#   std_msgs
-# )
+generate_messages(
+DEPENDENCIES
+        std_msgs
+#baxter_core_msgs#   baxter_maintenance_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -120,7 +122,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 catkin_package(
   INCLUDE_DIRS include/
 #  LIBRARIES assembler
-#  CATKIN_DEPENDS baxter_core_msgs baxter_interface baxter_maintenance_msgs roscpp rospy std_msgs
+  CATKIN_DEPENDS baxter_core_msgs baxter_interface baxter_maintenance_msgs roscpp rospy std_msgs message_runtime
   DEPENDS system_lib
 )
 
@@ -141,25 +143,48 @@ include_directories(
 # )
 add_library(assembler
         src/HotspotMegaBlock.cpp
-        src/AssemblyLayer.cpp src/AssemblyLayer.h src/BuildComponent.cpp src/BuildComponent.h src/MegaBlock.cpp src/MegaBlock.h src/ComponentManager.cpp src/ComponentManager.h)
+        src/AssemblyLayer.cpp
+        src/AssemblyLayer.h
+        src/BuildComponent.h
+        src/MegaBlock.cpp
+        src/MegaBlock.h
+        src/ComponentManager.cpp
+        src/ComponentManager.h
+        src/AssemblerNodes/LayeredAssemblerNode.cpp
+        src/AssemblerNodes/LayeredAssemblerNode.h
+        src/AssemblerNodes/BaseAssemblerNode.h
+        src/AssemblyObject/BaseAssembly.cpp
+        src/AssemblyObject/BaseAssembly.h
+        src/AssemblyObject/LayeredAssembly.cpp
+        src/AssemblyObject/LayeredAssembly.h
+        src/AssemblerNodes/AssemblerNodeFactory.cpp
+        src/AssemblerNodes/AssemblerNodeFactory.h)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(assembler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(assembler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 # add_executable(assembler_node src/assembler_node.cpp)
+#add_executable(test_parse src/AssemblerNodes/test.cpp)
+add_executable(layered_assembler src/AssemblerNodes/LayeredAssemblerNode.cpp)
+add_executable(foreman_node src/ForemanNode/ForemanNode.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(assembler_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(layered_assembler ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(assembler_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(${PROJECT_NAME} yaml-cpp)
+#target_link_libraries(test_parse ${catkin_LIBRARIES} yaml-cpp)
+target_link_libraries(assembler ${catkin_LIBRARIES} yaml-cpp assembler ${class_loader_LIBRARIES})
+target_link_libraries(layered_assembler ${catkin_LIBRARIES} yaml-cpp assembler)
+target_link_libraries(foreman_node ${catkin_LIBRARIES} yaml-cpp assembler)
+#target_link_libraries(${PROJECT_NAME} yaml-cpp)
 
 #############
 ## Install ##

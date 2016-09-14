@@ -4,14 +4,21 @@
 
 #include "AssemblyLayer.h"
 
+AssemblyLayer::AssemblyLayer(float zHeight) {
+    this->layerZHeight = zHeight;
+    this->layerIndex = -1;
+
+    this->buildComponents = std::vector<BuildComponent*>();
+}
+
 AssemblyLayer::AssemblyLayer(float zHeight, int layerIndex) {
     this->layerZHeight = layerZHeight;
     this->layerIndex = layerIndex;
 
-    this->buildComponents = std::vector<BuildComponent>();
+    this->buildComponents = std::vector<BuildComponent*>();
 }
 
-int AssemblyLayer::getLayerIndex() {
+long AssemblyLayer::getLayerIndex() {
     return this->layerIndex;
 }
 
@@ -31,10 +38,10 @@ unsigned long AssemblyLayer::getNumberOfComponents() {
     return this->buildComponents.size();
 }
 
-void AssemblyLayer::addBuildComponent(BuildComponent toAdd) {
+void AssemblyLayer::addBuildComponent(BuildComponent* toAdd) {
     this->buildComponents.push_back(toAdd);
 }
 
-std::vector<BuildComponent> AssemblyLayer::getBuildComponents() {
+std::vector<BuildComponent*> AssemblyLayer::getBuildComponents() {
     return this->buildComponents;
 }
